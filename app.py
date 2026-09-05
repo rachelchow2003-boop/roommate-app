@@ -20,7 +20,7 @@ tab1, tab2 = st.tabs(["⚠️ Warning 警告信", "🧾 追債"])
 with tab1:
     st.subheader("🚨 發出罪行警告")
     with st.form("warning_form", clear_on_submit=True):
-        target = st.text_input("被告人", placeholder="輸入室友名字...")
+        target = st.text_input("被告人", placeholder="輸入罪人名字...")
         category = st.selectbox("罪行", [
             "🥣 食完飯無手尾", 
             "🔊 洗頭唔執頭髮", 
@@ -46,7 +46,7 @@ with tab1:
     
     # 顯示警告信列表
     if not st.session_state.warnings:
-        st.info("🎉 暫時天下太平，相信相愛！")
+        st.info("🎉 暫時天下太平，相親相愛！")
     else:
         for idx, w in enumerate(st.session_state.warnings):
             with st.container(border=True):
