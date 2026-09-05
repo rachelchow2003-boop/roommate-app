@@ -4,7 +4,7 @@ st.set_page_config(page_title="同住生存指南 🏠", page_icon="🏠", layou
 
 # 頂部視覺美化
 st.markdown("<h1 style='text-align: center;'>🏠 同住批鬥法庭 & 財政部</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: gray;'>Just for fun，和諧共處相親相愛喔 🤪</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: gray;'>Just for fun，和諧共處 相親相愛喔💗</p>", unsafe_allow_html=True)
 st.divider()
 
 # 初始化 Session State
@@ -26,9 +26,9 @@ with tab1:
             "🔊 洗頭唔執頭髮", 
             "🗑️ 垃圾堆積如山", 
             "🧻 廁紙用曬唔換新",
-            "❓ 其他（請在詳細罪狀註明）"
+            "❓ 其他 "
         ])
-        desc = st.text_input("詳細罪狀", placeholder="例如：隻碗擺咗兩日發霉...")
+        desc = st.text_input("詳細罪狀", placeholder="救命啊...")
         
         if st.form_submit_button("🔥 發送警告信！", use_container_width=True):
             if target:
@@ -46,7 +46,7 @@ with tab1:
     
     # 顯示警告信列表
     if not st.session_state.warnings:
-        st.info("🎉 暫時天下太平，冇人被告發！")
+        st.info("🎉 暫時天下太平，相信相愛！")
     else:
         for idx, w in enumerate(st.session_state.warnings):
             with st.container(border=True):
@@ -74,7 +74,7 @@ with tab1:
                     
                     if not w["reason"]:
                         # 讓被告輸入辯解理由
-                        reason_input = st.text_input("💬 請寫出你不認罪嘅理由（Chat Box）：", key=f"reason_input_{idx}")
+                        reason_input = st.text_input("💬 請交出不認罪理由：", key=f"reason_input_{idx}")
                         if st.button("提交辯解", key=f"sub_reason_{idx}"):
                             if reason_input:
                                 st.session_state.warnings[idx]["reason"] = reason_input
@@ -82,8 +82,8 @@ with tab1:
                     else:
                         # 顯示辯解內容與【原諒】按鈕
                         st.info(f"🗣️ **{w['被告']} 的辯解：** {w['reason']}")
-                        if st.button("❤️ 原諒佢啦（撤銷罪告）", key=f"forgive_{idx}", use_container_width=True):
-                            st.toast("罪過已撤銷，恢復和平！🕊️")
+                        if st.button("❤️ 原諒你啦（撤銷罪告）", key=f"forgive_{idx}", use_container_width=True):
+                            st.toast("罪過已撤銷，相親相愛！🕊️")
                             st.session_state.warnings.pop(idx)
                             st.rerun()
 
@@ -114,7 +114,7 @@ with tab2:
                     st.success("追帳發起成功！")
                     st.rerun()
                 except ValueError:
-                    st.error("⚠️ 金額請只輸入數字喔！（例如：150 或 200.5）")
+                    st.error("⚠️ 金額請只輸入數字")
 
     st.divider()
     
