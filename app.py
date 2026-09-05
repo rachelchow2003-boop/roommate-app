@@ -1,22 +1,17 @@
 import streamlit as st
 
-st.set_page_config(page_title="室友生存指南 🏠", page_icon="🏠", layout="centered")
-st.title("🏠 室友法庭 & 財政部")
-st.caption("Casual 玩吓別認真，小心感情破裂 🤪")
+st.set_page_config(page_title="同住生存指南 🏠", page_icon="🏠", layout="centered")
+st.title("🏠 同住批鬥法庭 & 財政部")
+st.caption("Just for fun，和諧共處相親相愛喔🤪")
 
-if "warnings" not in st.session_state:
-    st.session_state.warnings = [{"被告": "阿強", "罪行": "🧻 用的最後一張廁紙唔換新", "補充": "想害死人咩！"}]
 
-if "receipts" not in st.session_state:
-    st.session_state.receipts = [{"項目": "8月水電費", "總金額": 600, "墊付人": "Sam", "幾多人分": 3, "每人應付": 200.0}]
-
-tab1, tab2 = st.tabs(["⚠️ 告發/警告信", "🧾 追債/追收據"])
+tab1, tab2 = st.tabs(["⚠️ Warning 警告信", "🧾 追債"])
 
 with tab1:
     st.subheader("🚨 發出罪行警告")
     with st.form("warning_form", clear_on_submit=True):
         target = st.text_input("被告人")
-        category = st.selectbox("罪行", ["🥣 𩠌汁/碗碟擺咗 3 日都唔洗", "🔊 凌晨三點開喇叭打機", "🗑️ 垃圾桶滿到積成山", "🧻 用的最後一張廁紙唔換新"])
+        category = st.selectbox("罪行", ["🥣 食完飯無手尾", "🔊 洗頭唔執頭髮", "🗑️ 垃圾堆積如山", "🧻 廁紙用曬唔換新"])
         desc = st.text_input("詳細罪狀")
         if st.form_submit_button("🔥 發送警告信！", use_container_width=True):
             if target:
@@ -37,15 +32,15 @@ with tab1:
                     st.rerun()
 
 with tab2:
-    st.subheader("💸 新增追帳")
+    st.subheader("💸 新增追債")
     with st.form("receipt_form", clear_on_submit=True):
-        title = st.text_input("項目名稱")
+        title = st.text_input("Item")
         amount = st.number_input("總金額 ($)", min_value=1.0, value=300.0)
         people = st.number_input("幾多人分", min_value=1, value=3)
-        payer = st.text_input("代墊人")
-        if st.form_submit_button("🧾 發起追帳！", use_container_width=True):
+        payer = st.text_input("代付人")
+        if st.form_submit_button("🧾 發起追數！", use_container_width=True):
             if title and payer:
-                st.session_state.receipts.insert(0, {"項目": title, "總金額": amount, "墊付人": payer, "幾多人分": people, "每人應付": round(amount/people, 1)})
+                st.session_state.receipts.insert(0, {"項目": title, "總金額": amount, "代付人": payer, "幾多人分": people, "每人應付": round(amount/people, 1)})
                 st.success("追帳成功！")
                 st.rerun()
 
