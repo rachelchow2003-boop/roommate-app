@@ -14,7 +14,7 @@ if "warnings" not in st.session_state:
 if "receipts" not in st.session_state:
     st.session_state.receipts = []
 
-tab1, tab2 = st.tabs(["⚠️ Warning 警告信", "🧾 追債"])
+tab1, tab2 = st.tabs(["⚠️ Warning 警告信", "🧾 Debt Collection 追債"])
 
 # ================= Tab 1: 警告信 =================
 with tab1:
@@ -46,7 +46,7 @@ with tab1:
     
     # 顯示警告信列表
     if not st.session_state.warnings:
-        st.info("🎉 暫時天下太平，相親相愛！")
+        st.info("🎉 大家要繼續相親相愛！")
     else:
         for idx, w in enumerate(st.session_state.warnings):
             with st.container(border=True):
@@ -83,7 +83,7 @@ with tab1:
                         # 顯示辯解內容與【原諒】按鈕
                         st.info(f"🗣️ **{w['被告']} 的辯解：** {w['reason']}")
                         if st.button("❤️ 原諒你啦（撤銷罪告）", key=f"forgive_{idx}", use_container_width=True):
-                            st.toast("罪過已撤銷，相親相愛！🕊️")
+                            st.toast("罪過已撤銷 恭喜恭喜！🕊️")
                             st.session_state.warnings.pop(idx)
                             st.rerun()
 
@@ -91,13 +91,13 @@ with tab1:
 with tab2:
     st.subheader("💸 新增追債")
     with st.form("receipt_form", clear_on_submit=True):
-        title = st.text_input("Item 項目名稱", placeholder="例如：買洗潔精 / 7月電費")
+        title = st.text_input("Item 項目名稱", placeholder="買廁紙/今個月電費")
         
         # 📌 總金額改為純文字 Chat box 輸入，只能打字
-        amount_str = st.text_input("總金額 ($)", placeholder="請直接打字輸入金額，例如：300")
+        amount_str = st.text_input("總金額 ($)", placeholder="輸入金額")
         
         people = st.number_input("幾多人分", min_value=1, value=3, step=1)
-        payer = st.text_input("代付人", placeholder="誰付的錢...")
+        payer = st.text_input("代付人", placeholder="金主...")
         
         if st.form_submit_button("🧾 發起追數！", use_container_width=True):
             if title and payer and amount_str:
@@ -107,11 +107,11 @@ with tab2:
                     st.session_state.receipts.insert(0, {
                         "項目": title, 
                         "總金額": amount_num, 
-                        "代付人": payer, 
+                        "金主": payer, 
                         "幾多人分": people, 
-                        "每人應付": round(amount_num / people, 1)
+                        "每人磅水": round(amount_num / people, 1)
                     })
-                    st.success("追帳發起成功！")
+                    st.success("追數發起成功！")
                     st.rerun()
                 except ValueError:
                     st.error("⚠️ 金額請只輸入數字")
